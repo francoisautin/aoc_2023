@@ -1,0 +1,41 @@
+{
+  "name": "francoisautin/aoc_2023",
+  "description": "Advent of code 2023 answers written in PHP",
+  "keywords": [
+    "Advent",
+    "Code",
+    "2023",
+    "PHP"
+  ],
+  "type": "application",
+  "authors": [
+    {
+      "name": "François AUTIN",
+      "role": "Author"
+    }
+  ],
+  "version": "dev-1",
+  "license": [
+    "Apache-2.0"
+  ],
+  "require": {
+    "php": "^8.3"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^v3",
+    "phpstan/phpstan": "^1.12",
+    "jetbrains/phpstorm-attributes": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "scripts": {
+    "phpstan": "@php vendor/bin/phpstan analyze src -l 3",
+    "cs": "@php vendor/bin/php-cs-fixer fix ."
+  },
+  "bin": [
+    "aoc_2023"
+  ]
+}

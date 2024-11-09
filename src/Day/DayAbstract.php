@@ -7,9 +7,12 @@ namespace App\Day;
 use App\Loader\InputLoadException;
 use App\Loader\Loader;
 
-abstract class DayAbstract implements DayInterface
+abstract class DayAbstract
 {
     protected readonly ?string $input;
+
+    abstract public function part1(): string;
+    abstract public function part2(): string;
 
     public function __construct(string $fileName)
     {
@@ -32,15 +35,5 @@ abstract class DayAbstract implements DayInterface
             Part 2: $resultPartTwo
             EOD;
         }
-    }
-
-    public function part1(): string
-    {
-        return 'Not implemented';
-    }
-
-    public function part2(): string
-    {
-        return 'Not implemented';
     }
 }

@@ -56,31 +56,33 @@ class Day3 extends DayAbstract
         /** @var string[] $gearsAssociatedToThisNumber */
         $gearsAssociatedToThisNumber = [];
 
-        for ($i = 0; $i < $grid['dim']['y']; $i++) { for ($j = 0; $j < $grid['dim']['x']; $j++) {
-            $charInCell = $grid['cells'][$i][$j];
-            if (!is_numeric($charInCell)) {
-                if ($isSerialNumber && !empty($gearsAssociatedToThisNumber)) {
-                    foreach ($gearsAssociatedToThisNumber as $gear) {
-                        if (!isset($gearAssociations[$gear])) {
-                            $gearAssociations[$gear] = [];
+        for ($i = 0; $i < $grid['dim']['y']; $i++) {
+            for ($j = 0; $j < $grid['dim']['x']; $j++) {
+                $charInCell = $grid['cells'][$i][$j];
+                if (!is_numeric($charInCell)) {
+                    if ($isSerialNumber && !empty($gearsAssociatedToThisNumber)) {
+                        foreach ($gearsAssociatedToThisNumber as $gear) {
+                            if (!isset($gearAssociations[$gear])) {
+                                $gearAssociations[$gear] = [];
+                            }
+                            $gearAssociations[$gear][] = $charSequence;
                         }
-                        $gearAssociations[$gear][] = $charSequence;
+                        $isSerialNumber = false;
                     }
-                    $isSerialNumber = false;
-                }
-                $gearsAssociatedToThisNumber = [];
-                $charSequence = '';
-            } else {
-                $charSequence .= $charInCell;
-                $gear = $this->hasStarAsNeighbor(['x' => $j, 'y' => $i], $grid);
-                if (null !== $gear) {
-                    $isSerialNumber = true;
-                    if (!in_array($gear, $gearsAssociatedToThisNumber, true)) {
-                        $gearsAssociatedToThisNumber[] = $gear;
+                    $gearsAssociatedToThisNumber = [];
+                    $charSequence = '';
+                } else {
+                    $charSequence .= $charInCell;
+                    $gear = $this->hasStarAsNeighbor(['x' => $j, 'y' => $i], $grid);
+                    if (null !== $gear) {
+                        $isSerialNumber = true;
+                        if (!in_array($gear, $gearsAssociatedToThisNumber, true)) {
+                            $gearsAssociatedToThisNumber[] = $gear;
+                        }
                     }
                 }
             }
-        }}
+        }
 
         return (string) array_sum(array_map(
             fn ($value) => array_product($value),

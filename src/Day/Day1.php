@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Day;
 
+use UnexpectedValueException;
+
 class Day1 extends DayAbstract
 {
     public function __construct()
@@ -28,6 +30,9 @@ class Day1 extends DayAbstract
     private function getCalibrationValuePart1(string $input): int
     {
         $numbers = preg_replace('~\D~', '', $input);
+        if (null === $numbers) {
+            throw new UnexpectedValueException('$numbers should not be null');
+        }
         return (10 * (int) substr($numbers, 0, 1)) + (int) substr($numbers, -1);
     }
 

@@ -13,15 +13,24 @@ final class Loader
     {
         $path = "input/$fileName";
         if (!file_exists($path)) {
-            throw new InputLoadException("File $path does not exist.");
+            throw new InputLoadException("File $path does not exist");
         }
 
         $fileHandle = fopen($path, 'r');
         if (!$fileHandle) {
-            throw new InputLoadException("Failed to open file $fileName.");
+            throw new InputLoadException("Failed to open file $path");
         }
 
-        $contents = fread($fileHandle, filesize($path));
+        $fileSize = filesize($path);
+        if (false === $fileSize || 0 === $fileSize) {
+            throw new InputLoadException("Failed to assess size of file $path. Is the file empty?");
+        }
+
+        $contents = fread($fileHandle, $fileSize);
+        if (false === $contents) {
+            throw new InputLoadException("Failed to load file $path");
+        }
+
         fclose($fileHandle);
         return $contents;
     }

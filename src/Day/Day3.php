@@ -150,6 +150,11 @@ class Day3 extends DayAbstract
         return null;
     }
 
+    /**
+     * @param Coord $cellCoord
+     * @param Grid $grid
+     * @return Coord[]
+     */
     private function getCellNeighbors(array $cellCoord, array $grid): array
     {
         $toCheck = [

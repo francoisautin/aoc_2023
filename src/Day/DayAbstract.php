@@ -9,31 +9,27 @@ use App\Loader\Loader;
 
 abstract class DayAbstract
 {
-    protected readonly ?string $input;
+    protected readonly string $input;
 
     abstract public function part1(): string;
     abstract public function part2(): string;
 
+    /**
+     * @param string $fileName
+     * @throws InputLoadException
+     */
     public function __construct(string $fileName)
     {
-        try {
-            $this->input = Loader::loadFileContents($fileName);
-        } catch (InputLoadException) {
-            $this->input = null;
-        }
+        $this->input = Loader::loadFileContents($fileName);
     }
 
     final public function getResults(): string
     {
-        if (null === $this->input) {
-            return 'Failed to load input file.';
-        } else {
-            $resultPartOne = $this->part1();
-            $resultPartTwo = $this->part2();
-            return <<<EOD
-            Part 1: $resultPartOne
-            Part 2: $resultPartTwo
-            EOD;
-        }
+        $resultPartOne = $this->part1();
+        $resultPartTwo = $this->part2();
+        return <<<EOD
+        Part 1: $resultPartOne
+        Part 2: $resultPartTwo
+        EOD;
     }
 }
